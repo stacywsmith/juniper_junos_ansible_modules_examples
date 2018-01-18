@@ -23,6 +23,7 @@
         kwarg:
           source: 'ftp://user:user123@r1/example.file'
           destination: '/var/tmp/'
+          staging-directory: '/var/tmp/'
         timeout: 1800
       register: response
     - name: 'Print response'
