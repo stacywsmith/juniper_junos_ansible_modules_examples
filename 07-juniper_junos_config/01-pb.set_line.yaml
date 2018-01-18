@@ -1,0 +1,22 @@
+---
+#
+# Config line in set format
+#
+- name: 'Config line in set format'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Config line in set format"
+      juniper_junos_config:
+        load: 'set'
+        lines:
+          - "set system host-name {{ inventory_hostname }}.foo"
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

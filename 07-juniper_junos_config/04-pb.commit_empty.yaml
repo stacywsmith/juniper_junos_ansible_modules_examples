@@ -1,0 +1,21 @@
+---
+#
+# Rollback
+#
+- name: 'Rollback to rescue config'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Rollback to rescue config"
+      juniper_junos_config:
+        rollback: 'rescue'
+        commit_empty_changes: true
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

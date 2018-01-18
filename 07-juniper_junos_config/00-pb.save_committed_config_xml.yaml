@@ -1,0 +1,25 @@
+---
+#
+# Save the committed config
+#
+- name: 'Save the committed config'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Save the committed config"
+      juniper_junos_config:
+        retrieve: 'committed'
+        diff: false
+        check: false
+        commit: false
+        dest_dir: './output/'
+        format: 'xml'
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

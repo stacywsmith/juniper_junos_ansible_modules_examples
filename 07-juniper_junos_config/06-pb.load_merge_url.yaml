@@ -1,0 +1,22 @@
+---
+#
+# Load override a saved config
+#
+- name: 'Load from a file on the Junos device, skip the commit check'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: 'Load from a file on the Junos device, skip the commit check'
+      juniper_junos_config:
+        load: 'merge'
+        url: '/var/tmp/{{ inventory_hostname }}.hostname.conf'
+        check: false
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

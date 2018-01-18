@@ -1,0 +1,31 @@
+---
+#
+# Enable NETCONF SSH and traceoptions, save config, and diffs.
+#
+- name: 'Enable NETCONF SSH and traceoptions, save config, and diffs.'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: 'Enable NETCONF SSH and traceoptions, save config, and diffs.'
+      juniper_junos_config:
+        load: 'set'
+        lines:
+          - 'delete protocols ospf'
+          - 'set system services netconf ssh'
+          - 'set system services netconf traceoptions flag all'
+          - 'set system services netconf traceoptions file netconf.log'
+        retrieve: 'candidate'
+        filter: 'system/services'
+        comment: 'Enable NETCONF with traceoptions'
+        ignore_warning: 'statement not found'
+        dest_dir: './output'
+
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

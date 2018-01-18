@@ -1,0 +1,22 @@
+---
+#
+# Load override a saved config
+#
+- name: 'Load override a saved config'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: 'Load override a saved config'
+      juniper_junos_config:
+        config_mode: 'private'
+        load: 'override'
+        src: './output/{{ inventory_hostname }}.xml'
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

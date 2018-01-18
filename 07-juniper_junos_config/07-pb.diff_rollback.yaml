@@ -1,0 +1,23 @@
+---
+#
+# Load override a saved config
+#
+- name: 'Diff with rollback 10'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: 'Diff with rollback 10'
+      juniper_junos_config:
+        rollback: 10
+        diff: true
+        check: false
+        commit: false
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

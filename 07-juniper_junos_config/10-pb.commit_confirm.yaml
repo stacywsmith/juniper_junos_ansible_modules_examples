@@ -1,0 +1,23 @@
+---
+#
+# Load override a saved config
+#
+- name: 'Load conf. Confirm within 5 min. Wait 3 secs between chk and commit'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: 'Load conf. Confirm within 5 min. Wait 3 secs between chk and commit'
+      juniper_junos_config:
+        load: 'merge'
+        url: '/var/tmp/{{ inventory_hostname }}.hostname.conf'
+        confirm: 5
+        check_commit_wait: 3
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

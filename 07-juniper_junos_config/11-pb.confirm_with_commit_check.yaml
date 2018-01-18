@@ -1,0 +1,22 @@
+---
+#
+# Confirm the previous commit with a commit check (but no commit)
+#
+- name: 'Confirm the previous commit with a commit check (but no commit)'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: 'Confirm the previous commit with a commit check (but no commit)'
+      juniper_junos_config:
+        check: true
+        diff: false
+        commit: false
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

@@ -1,0 +1,24 @@
+---
+#
+# Retrieve [edit system services] of current candidate config.
+#
+- name: 'Retrieve [edit system services] of current candidate config.'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: 'Retrieve [edit system services] of current candidate config.'
+      juniper_junos_config:
+        retrieve: 'candidate'
+        filter: 'system/services'
+        diff: false
+        check: false
+        commit: false
+      register: response
+
+    - name: "Print the config lines"
+      debug:
+        var: response.config_lines
