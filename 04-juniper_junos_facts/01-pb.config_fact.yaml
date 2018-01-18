@@ -1,0 +1,19 @@
+---
+#
+# Facts can also fetch the committed config.
+#
+- name: 'Automatically registered facts'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Get facts"
+      juniper_junos_facts:
+        config_format: text
+
+    - name: "Print Junos Config"
+      debug:
+        var: junos.config

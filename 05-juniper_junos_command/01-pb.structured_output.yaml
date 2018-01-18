@@ -1,0 +1,21 @@
+---
+#
+# For XML output, contains structured output.
+#
+- name: 'Structured output from XML'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "show lldp neighbors"
+      juniper_junos_command:
+        command: "show lldp neighbors"
+        format: 'xml'
+      register: response
+
+    - name: "Print the neighbors"
+      debug:
+        var: response['parsed_output']['lldp-neighbors-information']['lldp-neighbor-information']

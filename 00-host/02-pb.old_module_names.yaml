@@ -1,0 +1,23 @@
+---
+#
+# You can use the old module name and arguments.
+# Should be 100% backwards compatible with old playbooks.
+#
+- name: 'Old module names'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Get facts"
+      junos_get_facts:
+        host: "{{ inventory_hostname }}"
+        user: "user"
+        passwd: "user123"
+      register: response
+
+    - name: "Print Junos Version"
+      debug:
+        var: response.facts.version

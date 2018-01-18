@@ -1,0 +1,26 @@
+---
+- name: 'Copy a file'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: 'Multiple RPC'
+      juniper_junos_rpc:
+        rpcs:
+          - 'file_list'
+          - 'file_copy'
+          - 'file_list'
+        kwargs:
+          - path: '/var/tmp/example.file'
+            detail: true
+          - source: 'ftp://user:user123@r1/example.file'
+            destination: '/var/tmp/'
+          - path: '/var/tmp/example.file'
+            detail: true
+      register: response
+    - name: 'Print response'
+      debug:
+        var: response

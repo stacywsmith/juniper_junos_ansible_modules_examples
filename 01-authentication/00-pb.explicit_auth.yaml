@@ -1,0 +1,21 @@
+---
+#
+# The old way.
+# Explicit user and passwd
+#
+- name: 'Explicit auth arguments'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Get facts"
+      juniper_junos_facts:
+        user: "user"
+        passwd: "user123"
+
+    - name: "Print Junos Version"
+      debug:
+        var: junos.version

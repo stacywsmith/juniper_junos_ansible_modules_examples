@@ -1,0 +1,24 @@
+---
+#
+# Big output
+#
+- name: 'Big output'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "RSI"
+      juniper_junos_rpc:
+        rpc: "get-support-information"
+        format: 'text'
+        dest: "./output/{{ inventory_hostname }}.rsi"
+        timeout: 300
+        return_output: false
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

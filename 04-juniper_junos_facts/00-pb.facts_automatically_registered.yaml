@@ -1,0 +1,18 @@
+---
+#
+# Facts are automatically registered under the junos key
+#
+- name: 'Automatically registered facts'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Get facts"
+      juniper_junos_facts:
+
+    - name: "Print Junos Facts"
+      debug:
+        var: junos

@@ -1,0 +1,21 @@
+---
+#
+# See the docs for the default values for
+# user, passwd, and ssh_private_key_file.
+#
+# Defaults are compatible with Ansible Tower / AWX
+#
+- name: 'Default auth values'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Get facts"
+      juniper_junos_facts:
+
+    - name: "Print Junos Version"
+      debug:
+        var: junos.version

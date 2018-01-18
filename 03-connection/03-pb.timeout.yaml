@@ -1,0 +1,21 @@
+---
+#
+# Set an RPC timeout value
+#
+- name: 'RPC timeout value'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "RSI"
+      juniper_junos_command:
+        command: "request support information"
+        timeout: 1
+      register: response
+
+    - name: "Print Response"
+      debug:
+        var: response

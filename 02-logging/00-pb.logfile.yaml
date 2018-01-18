@@ -1,0 +1,19 @@
+---
+#
+# Logging with the logfile argument
+#
+- name: 'Logging with logfile'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Get facts"
+      juniper_junos_facts:
+        logfile: './logging/{{ inventory_hostname }}.log'
+
+    - name: "Print Junos Version"
+      debug:
+        var: junos.version

@@ -1,0 +1,22 @@
+---
+#
+# Multiple commands with one output format
+#
+- name: 'Multiple commands. One output format'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Two commands"
+      juniper_junos_command:
+        commands:
+          - "show interfaces terse lo0.0"
+          - "show lldp neighbors"
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

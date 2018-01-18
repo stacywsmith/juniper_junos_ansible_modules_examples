@@ -1,0 +1,40 @@
+---
+- name: 'Copy a file'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: 'List the /var/tmp/example.file before'
+      juniper_junos_rpc:
+        rpc: 'file_list'
+        kwarg:
+          path: '/var/tmp/example.file'
+          detail: true
+      register: response
+    - name: 'Print response'
+      debug:
+        var: response
+    - name: 'Copy a file from a URL to the router'
+      juniper_junos_rpc:
+        rpc: 'file_copy'
+        kwarg:
+          source: 'ftp://user:user123@r1/example.file'
+          destination: '/var/tmp/'
+        timeout: 1800
+      register: response
+    - name: 'Print response'
+      debug:
+        var: response
+    - name: 'List the /var/tmp/example.file after'
+      juniper_junos_rpc:
+        rpc: 'file_list'
+        kwarg:
+          path: '/var/tmp/example.file'
+          detail: true
+      register: response
+    - name: 'Print response'
+      debug:
+        var: response

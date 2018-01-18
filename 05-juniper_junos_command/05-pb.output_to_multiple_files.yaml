@@ -1,0 +1,23 @@
+---
+#
+# Multiple commands with multiple output files
+#
+- name: 'Multiple commands. Multiple output files'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Two commands"
+      juniper_junos_command:
+        commands:
+          - "show interfaces terse lo0.0"
+          - "show lldp neighbors"
+        dest_dir: "./output2/"
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

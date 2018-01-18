@@ -1,0 +1,23 @@
+---
+#
+# Multiple commands with one dest file
+#
+- name: 'Multiple commands. One output file'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Two commands"
+      juniper_junos_command:
+        commands:
+          - "show interfaces terse lo0.0"
+          - "show lldp neighbors"
+        dest: "./output/{{ inventory_hostname }}.cmd_output.txt"
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

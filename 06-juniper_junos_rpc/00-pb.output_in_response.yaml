@@ -1,0 +1,21 @@
+---
+#
+# The response now contains the RPC output
+#
+- name: 'RPC output in response'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "get-lldp-neighbors-information"
+      juniper_junos_rpc:
+        rpc: "get-lldp-neighbors-information"
+        format: 'text'
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

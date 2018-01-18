@@ -1,0 +1,21 @@
+---
+#
+# Connect to console via mode argument
+#
+- name: 'Mode telnet'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Get facts"
+      juniper_junos_facts:
+        host: 'r0.ts'
+        mode: 'telnet'
+        port: 15007
+
+    - name: "Print Junos Version"
+      debug:
+        var: junos.version

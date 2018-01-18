@@ -1,0 +1,29 @@
+---
+#
+# Multiple RPCs with multiple output formats
+#
+- name: 'Multiple RPCs. Multiple output formats'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Two RPCs"
+      juniper_junos_rpc:
+        rpcs:
+          - "get-interface-information"
+          - "get-lldp-interface-neighbors"
+        kwargs:
+          - terse: true
+            interface_name: 'lo0.0'
+          - interface_device: 'ge-0/0/0'
+        formats:
+          - 'text'
+          - 'json'
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

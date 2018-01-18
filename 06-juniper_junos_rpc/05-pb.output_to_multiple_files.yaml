@@ -1,0 +1,24 @@
+---
+#
+# Multiple RPCs with multiple output files
+#
+- name: 'Multiple RPCs. Multiple output files'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Two RPCs"
+      juniper_junos_rpc:
+        rpcs:
+          - "get-route-summary-information"
+          - "get-lldp-neighbors-information"
+        format: 'text'
+        dest_dir: "./output2/"
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

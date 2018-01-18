@@ -1,0 +1,19 @@
+---
+#
+# Logging with the logdir argument
+#
+- name: 'Logging with logdir'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Get facts"
+      juniper_junos_facts:
+        logdir: './logging/'
+
+    - name: "Print Junos Version"
+      debug:
+        var: junos.version

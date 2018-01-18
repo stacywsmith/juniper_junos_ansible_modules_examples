@@ -1,0 +1,24 @@
+---
+#
+# Multiple RPCs with one dest file
+#
+- name: 'Multiple RPCs. One dest file'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Two RPCs"
+      juniper_junos_rpc:
+        rpcs:
+          - "get-route-summary-information"
+          - "get-lldp-neighbors-information"
+        format: 'text'
+        dest: "./output/{{ inventory_hostname }}.rpc_output.txt"
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

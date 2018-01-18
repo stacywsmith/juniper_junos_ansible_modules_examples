@@ -1,0 +1,22 @@
+---
+#
+# All connection-related arguments may be specified
+# insider a provider dictionary, like the core modules.
+#
+- name: 'Provider dict for connection arguments'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Get facts"
+      juniper_junos_facts:
+        provider:
+          username: "user"
+          password: "user123"
+
+    - name: "Print Junos Version"
+      debug:
+        var: junos.version

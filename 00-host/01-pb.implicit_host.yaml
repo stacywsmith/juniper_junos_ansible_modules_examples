@@ -1,0 +1,21 @@
+---
+#
+# The new way.
+# host argument defaults to {{ inventory_hostname }}
+#
+- name: 'Implicit host argument'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Get facts"
+      juniper_junos_facts:
+        user: "user"
+        passwd: "user123"
+
+    - name: "Print Junos Version"
+      debug:
+        var: junos.version
