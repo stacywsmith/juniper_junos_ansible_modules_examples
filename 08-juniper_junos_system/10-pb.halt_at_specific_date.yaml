@@ -1,0 +1,21 @@
+---
+#
+# Halt the system on 25 January 2018 at 4pm. (Both REs if it's a dual RE system)
+#
+- name: "Halt the system on 25 January 2018 at 4pm."
+  hosts: r6
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Halt the system on 25 January 2018 at 4pm."
+      juniper_junos_system:
+        action: "halt"
+        at: "1801251600"
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

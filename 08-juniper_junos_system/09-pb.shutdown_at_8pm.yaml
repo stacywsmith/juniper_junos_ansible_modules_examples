@@ -1,0 +1,21 @@
+---
+#
+# Shutdown at 8pm. (Both REs if it's a dual RE system)
+#
+- name: "Shutdown at 8pm (Both REs if it's a dual RE system)"
+  hosts: r6
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Shutdown at 8pm. (Both REs if it's a dual RE system)"
+      juniper_junos_system:
+        action: 'shutdown'
+        at: "20:00"
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

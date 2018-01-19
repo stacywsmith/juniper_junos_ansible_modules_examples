@@ -1,0 +1,21 @@
+---
+#
+# Power off. Local RE.
+#
+- name: "Power off. Local RE"
+  hosts: r6
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Power off. Local RE."
+      juniper_junos_system:
+        action: 'shutdown'
+        all_re: false
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

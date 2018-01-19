@@ -1,0 +1,21 @@
+---
+#
+# Zeroize both RE and overwrite media.
+#
+- name: "Zeroize both RE and overwrite media."
+  hosts: r6
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Zeroize both RE and overwrite media."
+      juniper_junos_system:
+        action: "zeroize"
+        media: true
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

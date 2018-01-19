@@ -1,0 +1,21 @@
+---
+#
+# Reboot the local RE only
+#
+- name: "Reboot the local RE only"
+  hosts: r6
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Reboot the local RE only"
+      juniper_junos_system:
+        action: 'reboot'
+        all_re: false
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

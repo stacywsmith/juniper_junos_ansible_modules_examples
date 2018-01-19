@@ -1,0 +1,24 @@
+---
+#
+# Junos install. Junos install. Image already on the router. Wait 30 seconds for reboot to begin.
+#
+- name: "Junos install. Image already on the router. Wait 30 seconds for reboot to begin."
+  hosts: r6
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Junos install. Image already on the router. Wait 30 seconds for reboot to begin."
+      juniper_junos_software:
+        remote_package: "/var/tmp/junos-install-mx-x86-64-17.4R1.16.tgz"
+        cleanfs: false
+        no_copy: true
+        reboot: true
+        reboot_pause: 30
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

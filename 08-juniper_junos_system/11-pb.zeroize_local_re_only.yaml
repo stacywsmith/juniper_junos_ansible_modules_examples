@@ -1,0 +1,21 @@
+---
+#
+# Zeroize the local RE only.
+#
+- name: "Zeroize the local RE only."
+  hosts: r6
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Zeroize the local RE only."
+      juniper_junos_system:
+        action: "zeroize"
+        all_re: false
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

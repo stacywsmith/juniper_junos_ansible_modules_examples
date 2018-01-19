@@ -1,0 +1,22 @@
+---
+#
+# Reboot in 1 min using at. (Both REs if it's a dual RE system)
+#
+- name: "Reboot in 1 min using at. (Both REs if it's a dual RE system)"
+  hosts: r6
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Reboot in 1 min using at. (Both REs if it's a dual RE system)"
+      juniper_junos_system:
+        action: 'reboot'
+        # Example of a relative value for 'at'. An absolute value would be: "20:00" i.e. 8pm
+        at: "+1m"
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

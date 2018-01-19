@@ -1,0 +1,23 @@
+---
+#
+# Execute a ISSU upgrade.
+#
+- name: "Execute a ISSU upgrade to version 17.4R1.16."
+  hosts: r6
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Execute a ISSU upgrade."
+      juniper_junos_software:
+        local_package: "./images/junos-install-mx-x86-64-17.4R1.16.tgz"
+        issu: true
+        version: 17.4R1.16
+        reboot: true
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

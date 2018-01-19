@@ -1,0 +1,20 @@
+---
+#
+# Power off. Both REs if it's a dual RE system.
+#
+- name: "Power off. Both REs if it's a dual RE system."
+  hosts: r6
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Power off. Both REs if it's a dual RE system."
+      juniper_junos_system:
+        action: 'shutdown'
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

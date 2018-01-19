@@ -1,0 +1,22 @@
+---
+#
+# Execute a basic Junos software upgrade on the local RE and reboot.
+#
+- name: "Execute a basic Junos software upgrade on the local RE and reboot."
+  hosts: r6
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Execute a basic Junos software upgrade on the local RE and reboot."
+      juniper_junos_software:
+        local_package: "./images/junos-install-mx-x86-64-17.4R1.16.tgz"
+        all_re: false
+        reboot: true
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

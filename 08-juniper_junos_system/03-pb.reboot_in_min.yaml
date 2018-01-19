@@ -1,0 +1,21 @@
+---
+#
+# Reboot in 1 min. (Both REs if it's a dual RE system)
+#
+- name: "Reboot in 1 min. (Both REs if it's a dual RE system)"
+  hosts: r6
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Reboot in 1 min. (Both REs if it's a dual RE system)"
+      juniper_junos_system:
+        action: 'reboot'
+        in_min: 1
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

@@ -1,0 +1,25 @@
+---
+#
+# Junos install. Specific remote location, pre-calced SHA1 checksum, no cleanfs
+#
+- name: "Junos install. Specific remote location, pre-calced SHA1 checksum, no cleanfs."
+  hosts: r6
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Junos install. Specific remote location, pre-calced SHA1 checksum, no cleanfs."
+      juniper_junos_software:
+        local_package: "./images/junos-install-mx-x86-64-17.4R1.16.tgz"
+        cleanfs: false
+        remote_package: "/var/home/user/junos-install-mx-x86-64-17.4R1.16.tgz"
+        checksum_algorithm: 'sha1'
+        checksum: "13aa6a4ea59e30c1230bcbbc3e3c7073a6d97bc5"
+        reboot: true
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response
