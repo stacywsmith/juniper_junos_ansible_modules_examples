@@ -1,0 +1,27 @@
+---
+#
+# Performa a snap_check of storage
+#
+- name: 'Performa a snap_check of storage'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: 'Performa a snap_check of storage'
+      juniper_junos_jsnapy:
+        action: "snapcheck"
+        config_file: "./config_junos_storage.yml"
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response
+
+    - name: Verify all JSNAPy tests passed
+      assert:
+        that:
+          - "response.passPercentage == 100"
+

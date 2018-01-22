@@ -1,0 +1,21 @@
+---
+#
+# Collect Post Snapshot of storage
+#
+- name: 'Collect Post Snapshot of storage'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: 'Collect Post Snapshot of storage'
+      juniper_junos_jsnapy:
+        action: "snap_post"
+        test_files: "./test_junos_storage.yml"
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response
