@@ -1,0 +1,22 @@
+---
+#
+# Perform PMTUD to 10.0.1.2. Search all possible sizes.
+#
+- name: 'Perform PMTUD to 10.0.1.2. Search all possible sizes.'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: 'Perform PMTUD to 10.0.1.2. Search all possible sizes.'
+      juniper_junos_pmtud:
+        dest: "10.0.1.2"
+        max_size: 65496
+        max_range: 65536
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

@@ -1,0 +1,20 @@
+---
+#
+# Perform PMTUD to 10.0.1.2 with default parameters.
+#
+- name: 'Perform PMTUD to 10.0.1.2 with default parameters.'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: 'Perform PMTUD to 10.0.1.2 with default parameters.'
+      juniper_junos_pmtud:
+        dest: "10.0.1.2"
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

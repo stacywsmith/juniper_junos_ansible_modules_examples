@@ -1,0 +1,20 @@
+---
+#
+# Ping 10.0.1.2 with default parameters. Fails if any packets lost.
+#
+- name: 'Ping 10.0.1.2 with default parameters. Fails if any packets lost.'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: 'Ping 10.0.1.2 with default parameters. Fails if any packets lost.'
+      juniper_junos_ping:
+        dest: "10.0.1.2"
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

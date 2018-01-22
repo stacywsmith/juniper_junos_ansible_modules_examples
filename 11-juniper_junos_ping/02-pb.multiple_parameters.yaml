@@ -1,0 +1,28 @@
+---
+#
+# Ping 10.0.1.2. Multiple parameters.
+#
+- name: 'Ping 10.0.1.2. Multiple parameters.'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: 'Ping 10.0.1.2. Multiple parameters.'
+      juniper_junos_ping:
+        dest: "10.0.1.2"
+        acceptable_percent_loss: 50
+        count: 10
+        rapid: false
+        ttl: 15
+        size: 1472  # IP  size of 1500
+        do_not_fragment: true
+        source: "10.0.1.1"
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response
+      register: response

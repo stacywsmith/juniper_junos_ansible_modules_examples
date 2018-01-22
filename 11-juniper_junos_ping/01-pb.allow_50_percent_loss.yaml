@@ -1,0 +1,21 @@
+---
+#
+# Ping 10.0.1.2. Allow 50% packet loss.
+#
+- name: 'Ping 10.0.1.2. Allow 50% packet loss.'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: 'Ping 10.0.1.2. Allow 50% packet loss.'
+      juniper_junos_ping:
+        dest: "10.0.1.2"
+        acceptable_percent_loss: 50
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response
