@@ -1,0 +1,22 @@
+---
+#
+# Enable an SRX cluster
+#
+- name: 'Enable an SRX cluster'
+  hosts: fw0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: 'Enable an SRX cluster'
+      juniper_junos_srx_cluster:
+        enable: true
+        cluster_id: 4
+        node_id: 0
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

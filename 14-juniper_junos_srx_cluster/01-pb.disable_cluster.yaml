@@ -1,0 +1,20 @@
+---
+#
+# Disable an SRX cluster
+#
+- name: 'Disable an SRX cluster'
+  hosts: fw0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: 'Disable an SRX cluster'
+      juniper_junos_srx_cluster:
+        enable: false
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response
