@@ -1,0 +1,24 @@
+---
+#
+# Retrieve routes within 10.0.0/8 from inet.0
+#
+- name: 'Retrieve routes within 10.0.0/8 from inet.0'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: 'Retrieve routes within 10.0.0/8 from inet.0'
+      juniper_junos_table:
+        file: "routes.yml"
+        table: "RouteTable"
+        kwargs:
+          destination: "10.0.0.0/8"
+          table: "inet.0"
+      register: response
+
+    - name: Print response
+      debug:
+        var: response

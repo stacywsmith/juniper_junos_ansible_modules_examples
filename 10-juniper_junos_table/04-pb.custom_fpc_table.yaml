@@ -1,0 +1,21 @@
+---
+#
+# Retrieve from custom table in playbook directory
+#
+- name: 'Retrieve from custom table in playbook directory'
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: 'Retrieve from custom table in playbook directory'
+      juniper_junos_table:
+        file: "fpc.yml"
+        path: "./"
+      register: response
+
+    - name: Print response
+      debug:
+        var: response

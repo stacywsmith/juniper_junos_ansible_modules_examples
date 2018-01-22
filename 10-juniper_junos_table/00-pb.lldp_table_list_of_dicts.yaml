@@ -1,0 +1,20 @@
+---
+#
+# Retrieve info using PyEZ included lldp.yml table. Default list of dicts response format.
+#
+- name: "Retrieve info using PyEZ included lldp.yml table. Default list of dicts response format."
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Retrieve info using PyEZ included lldp.yml table. Default list of dicts response format."
+      juniper_junos_table:
+        file: 'lldp.yml'
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response

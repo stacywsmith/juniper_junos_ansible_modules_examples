@@ -1,0 +1,21 @@
+---
+#
+# Retrieve info using PyEZ included routes.yml table. Explicitly specify table.
+#
+- name: "Retrieve info using PyEZ included routes.yml table. Explicitly specify table."
+  hosts: r0
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  tasks:
+    - name: "Retrieve info using PyEZ included routes.yml table. Explicitly specify table."
+      juniper_junos_table:
+        file: 'routes.yml'
+        table: 'RouteSummaryTable'
+      register: response
+
+    - name: "Print the response"
+      debug:
+        var: response
